@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="main" style="height: 600px;"></div>
+<div id="main1" style="height:400px;"></div>
+
+<script src="echarts.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    option = {
+        title : {
+            text: '未来一周气温变化',
+            subtext: '纯属虚构'
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type: 'line',            //'line' x轴的线 | 'cross' x，y的线 | 'shadow'   一片区域| 'none'(无)，
+                lineStyle: {
+                    color: '#48b',
+                    width: 2,
+                    type: 'dashed'        //dashe  虚线
+                },
+                crossStyle: {
+                    color: '#1e90ff',
+                    width: 1,
+                    type: 'dashed'
+                },
+                shadowStyle: {
+                    color: 'rgba(150,150,150,0.3)',
+                    width: 'auto',
+                    type: 'default'
+                }
+            }
+        },
+        legend: {
+            data:['最高气温']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['bar', 'line']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        dataRange: {
+            min: 10,
+            max: 15,
+            x: 'left',
+            y: 'bottom',
+            text:['高','低'],           // 文本，默认为数值文本
+            calculable : true
+/*            calculable : false,   //范围条不可以选择高低
+            splitNumber:0*/
+        },
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,   //x轴的坐标是否从0开始，false从0开始，true从X轴的一个点开始
+                data : ['周一','周二','周三','周四','周五','周六','周日'],
+                axisLabel: {     //让主轴上面的文字倾斜
+                    interval:0,     //挑选间隔   为1的时候  中间就隔了1个不显示
+                    rotate:45,      //选择40度
+                    textStyle: {   //修改文字的格式
+                        color: 'red'
+                    }
+                },
+                splitLine:{show: false},//去除网格线,xy都要加
+                splitArea : {show : true}//保留网格区域
+
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    //formatter: '{value} °C'
+                    formatter: function(a){    //用于控制y轴坐标的值
+                        return a+"°C"
+                    }
+                },
+                splitLine:{show: false},//去除网格线,xy都要加
+                splitArea : {show : true},//保留网格区域
+            }
+        ],
+        series : [
+            {
+                name:'最高气温',
+                type:'line',
+                smooth:true,  //平滑曲线显示，不用的话是直线
+                data:[11, 11, 15, 13, 12, 13, 10],
+                itemStyle : {
+                    normal: {
+                        color:"orange",   //修改曲线的颜色
+                        label : {
+                            show: true,
+                            textStyle: {   //修改的是图标上面的文字格式
+                                color: 'black'
+                            }
+                        }
+                    }
+                },   //每个点都显示对应的数字
+                markPoint : {
+                    data : [
+/*                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'},*/
+                        {name : 'B',  xAxis: '周二', yAxis: 11}   //显示对应坐标轴的值
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+
+</body>
+</html>

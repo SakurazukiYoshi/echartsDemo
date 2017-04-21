@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="echarts.js"></script>
+</head>
+<body>
+<div id="main" style="height:500px;"></div>
+
+<script src="echarts.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    var option = {
+        title : {
+            text: '[影片统计]'
+            //, subtext: '纯属虚构'   //副标题
+        },
+        tooltip : {    //提示框，鼠标悬浮交互时的信息提示
+            trigger: 'axis'  //	触发类型，默认数据触发，见下图，可选为：'item' 只像是经过的项目单个数据 | 'axis' 显示经过的x轴上的所有数据
+            //show:false
+        },
+        legend: {   //图例
+            data:['销量']
+            //orient:"vertical"    //水平分布还是竖直分布  'horizontal' 水平 | 'vertical'  竖直
+        },
+        toolbox: {    //工具箱
+            show : true,
+            feature : {
+                //mark : {show: false},   //辅助线
+                //dataView : {show: true, readOnly: false},  //数据视图将数据展现出来   readOnly 只读不能编辑 lang显示后的按钮
+                magicType : {show: true, type: ['line', 'bar']},
+                //动态类型切换  转化为不同的图片
+                restore : {show: true},   //还原
+                saveAsImage : {show: true}  //保存为图片
+            }
+        },
+        calculable : true,
+        xAxis : [    //x轴上的数据
+            {
+                type : 'category',   //x轴默认   类目型：需要指定类目列表，坐标轴内有且仅有这些指定类目坐标
+                data : ['TOP 1','TOP 2','TOP 3'],
+                splitLine:{show: false},  //去除网格线
+                //splitArea : {show : true}//保留网格区域
+                //,splitLine:{show:false}
+                //show:false,   //显示隐藏
+                //max/min   指定坐标轴的最大最小值
+            }
+        ],
+        yAxis : [    //y轴上的数据
+
+            {
+                splitLine:{show: false},//去除网格线
+                //splitArea : {show : true},//保留网格区域
+                type : 'value'   //数值型：需要指定数值区间，不指定时则自定计算数值范围，坐标轴内包含数值区间内容全部坐标
+                //,axisLine:{show:false}   //y轴主轴的线
+            }
+        ],
+
+
+
+        series : [   //驱动图表生成的数据内容数组，数组中每一项为一个系列的选项及数据，其中个别选项仅在部分图表类型中有效，请注意适用类型：
+                //legend的data有几个，这里就应该有几个对象
+            {
+                name:'销量',   //对应legend.data中的数据
+                type:'bar',   //必须指定数据用于什么类型的插图
+                barWidth: 100,   //柱状的宽度
+                /*
+                * 'line'（折线图） | 'bar'（柱状图） | 'scatter'（散点图） | 'k'（K线图） 'pie'（饼图） | 'radar'（雷达图） | 'chord'（和弦图） | 'force'（力导向布局图） | 'map'（地图）
+                * */
+                //data:[30215,20015,15000],   //不同类型的插图data的样子也不同需要注意
+                data:[{  //会传入模板中的function(params) {params.data}
+                    value:30215,
+                    color:"red",
+                    movie:"寻龙诀"
+
+                },{
+                    value:20015,
+                    color:"blue",
+                    movie:"卧虎长龙"
+                },{
+                    value:15000,
+                    color:"orange",
+                    movie:"天线宝宝"
+                }],
+                //折线图,柱状图时数组长度等于axis.data的长度，数据不存在的时候用'-'表示
+                itemStyle: {
+                    normal: {
+/*                        color: function(params) {   //自定义
+                            var colorList = [
+                                '#C1232B','#B5C334','#FCCE10'      //输入不同的颜色
+                            ];
+                            return colorList[params.dataIndex]
+                        }*/
+                        color: function(params) {  //通过data来定义
+                            return params.data.color
+                        }
+                        , label: /*{    //每个头部显示内容
+                            show: true,
+                            position: 'top',
+                            formatter: function(params){
+                                return params.data.movie+"\n"+params.name
+                            }
+                        }*/
+                        {
+                            show: true,
+                            position: 'insideTop',  //在柱体的内部
+                            formatter: function(params){
+                                return params.data.movie+"\n"+params.name
+                            }
+                        }
+
+                        //,barBorderWidth:100   //距离x轴的距离
+
+                    }
+                },
+                markPoint : {   //系列中的数据标注内容
+
+                }
+/*                , markLine : {   //水平线
+                    data : [
+                        {type : 'average', name: '平均值'},  //type有average  max  min
+                    ]
+                }*/
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

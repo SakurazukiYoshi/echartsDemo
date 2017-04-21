@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="main" style="width:400px;height: 600px;"></div>
+<div id="main1" style="height:400px;"></div>
+
+<script src="echarts.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    var data1=[
+        {
+            name:"寻龙诀",
+            value:12345,
+            color:"green"
+        },{
+            name:"卧虎藏龙",
+            value:10000,
+            color:"green"
+        },{
+            name:"天线宝宝",
+            value:5000,
+            color:"green"
+        }
+    ];
+    var data2=[
+        {
+            name:"寻龙诀",
+            value:12345,
+            color:"purple"
+        },{
+            name:"卧虎藏龙",
+            value:20000,
+            color:"purple"
+        },{
+            name:"天线宝宝",
+            value:15000,
+            color:"purple"
+        }
+    ];
+    var data3=[
+        {
+            name:"寻龙诀",
+            value:12345,
+            color:"red"
+        },{
+            name:"卧虎藏龙",
+            value:12000,
+            color:"red"
+        },{
+            name:"天线宝宝",
+            value:25000,
+            color:"red"
+        }
+    ];
+    var option = {
+        title:{text:"[影片统计]"},
+        tooltip:{
+            //trigger:"axis",
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        legend:{
+            data:["本周","本月","近三月"],
+            position:"right"
+        },
+        calculable : true,
+        xAxis:[
+            {
+                data : ['TOP 1','TOP 2','TOP 3'],
+                splitLine:{show: false}
+            }
+        ],
+        yAxis:[
+            {
+                splitLine:{show: false}
+            }
+        ],
+        series : [
+            {
+                name:'本周',
+                type:'bar',
+                stack: '总量',    //让数据重在一起
+                barWidth: 60,
+                data:data1,
+                itemStyle: {
+                    normal: {
+/*                        color: function(params) {  //通过data来定义
+                            return params.data.color
+                        }*/
+                        color:"black"
+                    }
+                }
+                ,label: {
+                    normal:{
+                        show: true,
+                        position: 'insideTop',  //在柱体的内部
+                        textStyle: {
+                            color: 'orange'
+                        },
+                        formatter: function(params){
+                            return params.data.name+"\n"+params.name
+                        }
+                    }
+                }
+            },
+            {
+                name:'本月',
+                type:'bar',
+                stack: '总量',
+                barWidth: 60,
+                data:data2,
+                itemStyle: {
+                normal: {
+                    color: function(params) {  //通过data来定义
+                        return params.data.color
+                    }
+                    , label:
+                    {
+                        show: true,
+                        position: 'insideTop',  //在柱体的内部
+                        formatter: function(params){
+                            return params.data.name+"\n"+params.name
+                        }
+                    }
+                }
+            }
+            },
+            {
+                name:'近三月',
+                type:'bar',
+                stack: '总量',
+                barWidth: 60,
+                data:data3,
+                itemStyle: {
+                    normal: {
+                        color: function(params) {  //通过data来定义
+                            return params.data.color
+                        }
+                        ,label:
+                        {
+                            show: true,
+                            position: 'insideTop',  //在柱体的内部
+                            formatter: function(params){
+                                return params.data.name+"\n"+params.name
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                name:'',
+                type:'bar',
+                stack: '总量',
+                barWidth: 0,
+                data:[{
+                    value:0,
+                    color:"pink",
+                    movie:"寻龙诀"
+                },{
+                    value:0,
+                    color:"pink",
+                    movie:"卧虎长龙"
+                },{
+                    value:0,
+                    color:"pink",
+                    movie:"天线宝宝"
+                }],
+                itemStyle: {
+                    normal: {
+                        color: "black"
+                        , label:
+                        {
+                            show: true,
+                            position: 'top',  //在柱体的内部
+                            formatter: function(params){
+                                var total=0;
+                                total+=data1[params.dataIndex].value;
+                                total+=data2[params.dataIndex].value;
+                                total+=data3[params.dataIndex].value;
+                                return params.data.movie+"\n"+total;
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                name:'',
+                type:'bar',
+                stack: '总量',
+                barWidth: 0,
+                data:[{
+                    value:0,
+                    color:"pink",
+                    movie:"寻龙诀"
+                },{
+                    value:0,
+                    color:"pink",
+                    movie:"卧虎长龙"
+                },{
+                    value:0,
+                    color:"pink",
+                    movie:"天线宝宝"
+                }],
+                itemStyle: {
+                    normal: {
+                         label:
+                        {
+                            show: true,
+                            position: 'top',  //在柱体的内部
+                            formatter: "12312",
+                            distance:40,
+                            textStyle:{
+                                fontSize:20,
+                                color: "red"
+                            }
+
+                        }
+                    }
+                }
+            },
+            {
+                name:'',
+                type:'bar',
+                stack: '总量',
+                barWidth: 0,
+                data:[{
+                    value:0,
+                    color:"pink",
+                    movie:"寻龙诀"
+                },{
+                    value:0,
+                    color:"pink",
+                    movie:"卧虎长龙"
+                },{
+                    value:0,
+                    color:"pink",
+                    movie:"天线宝宝"
+                }],
+                itemStyle: {
+                    normal: {
+                         label:
+                        {
+                            show: true,
+                            position: 'top',  //在柱体的内部
+                            formatter: "                  次",
+                            distance:40,
+                            textStyle:{
+                                fontSize:14,
+                                color: "blue"
+                            }
+
+                        }
+                    }
+                }
+            }
+        ]
+
+
+
+/*        itemStyle: {
+            normal: {
+                color: '#e56c0a'
+            }
+        },
+        label: {
+            normal: {
+                show: true,
+                position: 'top',
+                textStyle: {
+                    color: '#666'
+                },
+                formatter: function(params) {
+                    return params.value + data1[params.dataIndex]
+                }
+            }*/
+        };
+    myChart.setOption(option);
+</script>
+
+</body>
+</html>
